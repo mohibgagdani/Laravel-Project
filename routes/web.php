@@ -13,14 +13,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => redirect('/login'));
 
-// Auth Routes
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Admin Routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
@@ -35,7 +33,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/issues/{issue}/return', [BookIssueController::class, 'processReturn'])->name('issues.processReturn');
 });
 
-// User Routes
 Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
     Route::get('/books', [UserBookController::class, 'index'])->name('books.index');
     Route::get('/issues', [UserIssueController::class, 'index'])->name('issues.index');
