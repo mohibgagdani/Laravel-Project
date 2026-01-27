@@ -51,7 +51,10 @@ class BookIssueController extends Controller
         return redirect()->route('admin.issues.index')->with('success', 'Book issued successfully');
     }
 
-    
+    public function returnBook(BookIssue $issue)
+    {
+        return view('admin.issues.return', compact('issue'));
+    }
 
     public function processReturn(Request $request, BookIssue $issue)
     {
